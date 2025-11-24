@@ -1,6 +1,329 @@
+{% doc %}
+  @prompt
+    <div classname="bg-white text-brand-green-dark dark:bg-black dark:text-gray-300">
+      <main>
+        <section classname="relative h-[50vh] bg-black text-white flex items-center justify-center text-center pt-20">
+          {% if section.settings.image_1 != blank %}
+            {{ section.settings.image_1 | image_url: width: section.settings.image_1.width, height: section.settings.image_1.height | image_tag: alt: section.settings.image_1.alt, loading: 'lazy' }}
+          {% endif %}
+          <div classname="relative z-10 px-4">
+            {% if section.settings.heading_1 != blank %}
+              <h1 classname="text-4xl md:text-6xl font-serif caveat-heading text-brand-pink dark:text-brand-gold">{{ section.settings.heading_1 }}</h1>
+            {% endif %}
+            {% if section.settings.paragraph_1 != blank %}
+              <p classname="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">{{ section.settings.paragraph_1 }}</p>
+            {% endif %}
+          </div>
+        </section>
+        <section classname="py-20">
+          <div classname="container mx-auto px-4 max-w-4xl">
+            <div classname="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div classname="text-center md:text-left">
+                {% if section.settings.heading_2 != blank %}
+                  <h2 classname="text-4xl md:text-5xl mb-6 caveat-heading text-brand-pink dark:text-brand-gold">{{ section.settings.heading_2 }}</h2>
+                {% endif %}
+                <div classname="space-y-4 text-gray-700 dark:text-gray-400 leading-relaxed">
+                  {% if section.settings.paragraph_2 != blank %}
+                    <p>{{ section.settings.paragraph_2 }}</p>
+                  {% endif %}
+                  {% if section.settings.paragraph_3 != blank %}
+                    <p>{{ section.settings.paragraph_3 }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              <div classname="aspect-square relative rounded-lg overflow-hidden shadow-lg">
+                {% if section.settings.image_2 != blank %}
+                  {{ section.settings.image_2 | image_u
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-about-hero-{{ ai_gen_id }} {
+    position: relative;
+    min-height: 50vh;
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .ai-about-hero-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: {{ block.settings.image_opacity | divided_by: 100.0 }};
+  }
+
+  .ai-about-hero-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 10;
+    padding: 0 20px;
+    max-width: 100%;
+  }
+
+  .ai-about-hero-heading-{{ ai_gen_id }} {
+    font-size: 48px;
+    font-family: 'Caveat', cursive;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 16px;
+  }
+
+  .ai-about-hero-paragraph-{{ ai_gen_id }} {
+    margin-top: 16px;
+    font-size: 18px;
+    color: #d1d5db;
+    max-width: 672px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-about-story-{{ ai_gen_id }} {
+    padding: 80px 0;
+    background-color: {{ block.settings.story_bg_color }};
+  }
+
+  .ai-about-story-container-{{ ai_gen_id }} {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-about-story-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .ai-about-story-text-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-about-story-heading-{{ ai_gen_id }} {
+    font-size: 40px;
+    font-family: 'Caveat', cursive;
+    margin-bottom: 24px;
+    color: {{ block.settings.story_heading_color }};
+  }
+
+  .ai-about-story-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: {{ block.settings.story_text_color }};
+    line-height: 1.6;
+  }
+
+  .ai-about-story-content-{{ ai_gen_id }} p {
+    margin: 0;
+  }
+
+  .ai-about-story-image-wrapper-{{ ai_gen_id }} {
+    aspect-ratio: 1 / 1;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-about-story-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-about-story-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-about-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ai-about-hero-heading-{{ ai_gen_id }} {
+      font-size: 60px;
+    }
+
+    .ai-about-story-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ai-about-story-text-{{ ai_gen_id }} {
+      text-align: left;
+    }
+
+    .ai-about-story-heading-{{ ai_gen_id }} {
+      font-size: 48px;
+    }
+  }
+{% endstyle %}
+
+<div {{ block.shopify_attributes }}>
+  <section class="ai-about-hero-{{ ai_gen_id }}">
+    {% if block.settings.hero_image != blank %}
+      <img
+        src="{{ block.settings.hero_image | image_url: width: 2000 }}"
+        alt="{{ block.settings.hero_image.alt | escape }}"
+        class="ai-about-hero-image-{{ ai_gen_id }}"
+        loading="lazy"
+        width="{{ block.settings.hero_image.width }}"
+        height="{{ block.settings.hero_image.height }}"
+      >
+    {% endif %}
+    <div class="ai-about-hero-content-{{ ai_gen_id }}">
+      {% if block.settings.hero_heading != blank %}
+        <h1 class="ai-about-hero-heading-{{ ai_gen_id }}">{{ block.settings.hero_heading }}</h1>
+      {% endif %}
+      {% if block.settings.hero_paragraph != blank %}
+        <p class="ai-about-hero-paragraph-{{ ai_gen_id }}">{{ block.settings.hero_paragraph }}</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="ai-about-story-{{ ai_gen_id }}">
+    <div class="ai-about-story-container-{{ ai_gen_id }}">
+      <div class="ai-about-story-grid-{{ ai_gen_id }}">
+        <div class="ai-about-story-text-{{ ai_gen_id }}">
+          {% if block.settings.story_heading != blank %}
+            <h2 class="ai-about-story-heading-{{ ai_gen_id }}">{{ block.settings.story_heading }}</h2>
+          {% endif %}
+          <div class="ai-about-story-content-{{ ai_gen_id }}">
+            {% if block.settings.story_paragraph_1 != blank %}
+              <p>{{ block.settings.story_paragraph_1 }}</p>
+            {% endif %}
+            {% if block.settings.story_paragraph_2 != blank %}
+              <p>{{ block.settings.story_paragraph_2 }}</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="ai-about-story-image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.story_image != blank %}
+            <img
+              src="{{ block.settings.story_image | image_url: width: 800 }}"
+              alt="{{ block.settings.story_image.alt | escape }}"
+              class="ai-about-story-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ block.settings.story_image.width }}"
+              height="{{ block.settings.story_image.height }}"
+            >
+          {% else %}
+            <div class="ai-about-story-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "About us hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero section"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "image_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image opacity",
+      "default": 50
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Our Story"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f4ad57"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_paragraph",
+      "label": "Description",
+      "default": "Discover the journey behind our brand and what makes us unique"
+    },
+    {
+      "type": "header",
+      "content": "Story section"
+    },
+    {
+      "type": "color",
+      "id": "story_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Heading",
+      "default": "Who We Are"
+    },
+    {
+      "type": "color",
+      "id": "story_heading_color",
+      "label": "Heading color",
+      "default": "#f4ad57"
+    },
+    {
+      "type": "color",
+      "id": "story_text_color",
+      "label": "Text color",
+      "default": "#374151"
+    },
+    {
+      "type": "textarea",
+      "id": "story_paragraph_1",
+      "label": "First paragraph",
+      "default": "We are passionate about bringing you the finest products with exceptional quality and care."
+    },
+    {
+      "type": "textarea",
+      "id": "story_paragraph_2",
+      "label": "Second paragraph",
+      "default": "Our commitment to excellence drives everything we do, from sourcing to delivery."
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us hero"
+    }
+  ]
+}
 {% endschema %}
