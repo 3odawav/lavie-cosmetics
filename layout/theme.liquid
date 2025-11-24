@@ -1,140 +1,384 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
-
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="">
-    <link rel="canonical" href="{{ canonical_url }}">
-    {%- if settings.favicon != blank -%}
-        <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-    {%- endif -%}
-    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
-        <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="">
+  
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <!-- Custom Fonts: Sofia Pro for headings and Neue Haas Grotesk for body -->
-    <link href="https://fonts.cdnfonts.com/css/sofia-pro" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro" rel="stylesheet">
-    {{ 'custom-fonts.css' | asset_url | stylesheet_tag }}
-    <title>
-        {{ page_title }}
-        {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-        {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-        {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-    </title>
-    {% if page_description %}
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+  {%- endunless -%}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
-    {% render 'meta-tags' %}
-    <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {%- if settings.animations_reveal_on_scroll -%}
-        <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-    {{ content_for_header }}
-    {% render 'css-variables' %}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'hero-carousel.css' | asset_url | stylesheet_tag }}
-    {%- unless settings.type_body_font.system? -%}
-        <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
-    {%- unless settings.type_header_font.system? -%}
-        <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
-   
-    {%- if settings.predictive_search_enabled -%}
-        <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
-    {%- endif -%}
-    <script>
-        window.router = "{{ routes.cart_url | split: '/cart' | first}}";
-        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-        if (Shopify.designMode) {
-            document.documentElement.classList.add('shopify-design-mode');
-        }
-    </script>
-    <script>
-        window.freeShipping = {{ settings.free_shipping | json }};
-        window.shippingMessage = {{ settings.shipping_message | json }};
-        window.priceFreeShipping = {{ settings.shipping_price | default: 0 | json }};
-        window.noMore = {{ 'sections.collection_template.empty' | t | json }};
-        window.showMore = {{ 'products.facets.show_more' | t  | json}};
-        window.addressError = {{ 'sections.map.address_error' | t | json }};
-        window.remove =  {{ 'cart.general.remove' | t | json }};
-        window.in_stock = {{ 'products.product.in_stock' | t | json }};
-        window.out_of_stock = {{ 'products.product.out_of_stock' | t | json }};
-        window.currentLanguage =    {{ shop.locale | json }}; 
-        window.remove_wishlist =    {{ settings.show_product_wishlist | json }};    
-        window.remove_wishlist =    {{ 'general.wishlist.remove_wishlist' | t | json }};
-        window.add_to_wishlist = {{ 'general.wishlist.add_to_wishlist' | t | json }};
-        window.newsletter_popup = {{settings.enable_popup_newsletter}}; 
-        window.shopUrl = '{{ request.origin }}';
-        window.shop_currency = "{{ shop.currency }}";
-        window.addToCart = {{ 'products.product.add_to_cart' | t | json }};
-        window.unavailable =  {{ 'products.product.unavailable' | t | json }};
-        window.moneyFormat = {{ shop.money_format | json }};
-        window.routes = {
-            cart_add_url: '{{ routes.cart_add_url }}',
-            cart_change_url: '{{ routes.cart_change_url }}',
-            cart_update_url: '{{ routes.cart_update_url }}',
-            cart_url: '{{ routes.cart_url }}',
-            predictive_search_url: '{{ routes.predictive_search_url }}',
-        };
+  {% endif %}
 
-        window.cartStrings = {
-            error: `{{ 'sections.cart.cart_error' | t }}`,
-            quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
-        };
+  {% render 'meta-tags' %}
 
-        window.variantStrings = {
-            addToCart: `{{ 'products.product.add_to_cart' | t }}`,
-            soldOut: `{{ 'products.product.sold_out' | t }}`,
-            unavailable: `{{ 'products.product.unavailable' | t }}`,
-            unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
-        };
+  <!-- Google Fonts - La Vie Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Caveat:wght@400..700&family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 
-        window.quickOrderListStrings = {
-            itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
-            itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
-            itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
-            itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
-            viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
-            each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
-        };
+  <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+  
+  {{ content_for_header }}
 
-        window.accessibilityStrings = {
-            imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
-            shareSuccess: `{{ 'general.share.success_message' | t }}`,
-            pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
-            playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
-            recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
-            recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
-            countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
-        };
-    </script>
+  {%- liquid
+    assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+    assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+    assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+  %}
+
+  {% style %}
+    /* ============================================ */
+    /* LA VIE COSMETICS - CUSTOM THEME STYLES */
+    /* ============================================ */
+    
+    {{ settings.type_body_font | font_face: font_display: 'swap' }}
+    {{ body_font_bold | font_face: font_display: 'swap' }}
+    {{ body_font_italic | font_face: font_display: 'swap' }}
+    {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+    {{ settings.type_header_font | font_face: font_display: 'swap' }}
+
+    :root {
+      /* Brand Colors */
+      --brand-pink: #E91E63;
+      --brand-gold: #DAA520;
+      --brand-green: #CCFF00;
+      --brand-purple: #8B2F8B;
+      --brand-red: #EF4444;
+
+      /* Typography */
+      --font-body-family: 'Comfortaa', {{ settings.type_body_font.fallback_families }};
+      --font-body-style: {{ settings.type_body_font.style }};
+      --font-body-weight: {{ settings.type_body_font.weight }};
+      --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
+
+      --font-heading-family: 'Baskervville', {{ settings.type_header_font.fallback_families }};
+      --font-heading-style: {{ settings.type_header_font.style }};
+      --font-heading-weight: {{ settings.type_header_font.weight }};
+
+      --font-accent-family: 'Caveat', cursive;
+
+      /* Spacing */
+      --page-width: 1280px;
+      --page-width-margin: 0 auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    html {
+      box-sizing: border-box;
+      font-size: calc(var(--font-body-scale) * 62.5%);
+      height: 100%;
+    }
+
+    body {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      grid-template-columns: 100%;
+      min-height: 100%;
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.06rem;
+      line-height: calc(1 + 0.8 / var(--font-body-scale));
+      font-family: var(--font-body-family);
+      font-style: var(--font-body-style);
+      font-weight: var(--font-body-weight);
+      background-color: white;
+      color: #1a1a1a;
+    }
+
+    /* Dark Mode */
+    .dark body {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+      font-family: var(--font-heading-family);
+      font-style: var(--font-heading-style);
+      font-weight: var(--font-heading-weight);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .caveat-heading {
+      font-family: var(--font-accent-family);
+      font-weight: 600;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+      color: var(--brand-pink);
+    }
+
+    .dark .caveat-heading {
+      color: var(--brand-gold);
+    }
+
+    /* Container */
+    .container {
+      max-width: var(--page-width);
+      margin: var(--page-width-margin);
+      padding: 0 2rem;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-block;
+      background: var(--brand-pink);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark .btn-primary {
+      background: var(--brand-gold);
+      color: black;
+    }
+
+    /* Animations */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-marquee {
+      animation: marquee 20s linear infinite;
+    }
+
+    /* Utility Classes */
+    .text-brand-pink { color: var(--brand-pink); }
+    .text-brand-gold { color: var(--brand-gold); }
+    .bg-brand-pink { background-color: var(--brand-pink); }
+    .bg-brand-gold { background-color: var(--brand-gold); }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+    }
+  {% endstyle %}
+
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  
+  {%- if settings.predictive_search_enabled -%}
+    <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    if (Shopify.designMode) {
+      document.documentElement.classList.add('shopify-design-mode');
+    }
+
+    // Dark Mode Initialization
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
 
-<body class="{{template | handle }} {% if template == 'search' %} collection {% endif %} gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-    {% render 'icon-theme' %}
-    
-    {% sections 'header-group' %}
-    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-        {{ content_for_layout }}
-    </main>
-    {% sections 'footer-group' %}
-    <ul hidden>
-        <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
-        <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
-    </ul>
-    {% render 'recently-viewed-product-popup'%}
-    {%- if settings.predictive_search_enabled -%}
-        <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-        {% render 'popup' %}
-        {% render 'language-currency' %}
-        
-</body>
+<body class="gradient{% if template == 'cart' %} template-cart{% endif %}">
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    {{ "accessibility.skip_to_text" | t }}
+  </a>
 
+  {%- if settings.cart_type == 'drawer' -%}
+    {%- render 'cart-drawer' -%}
+  {%- endif -%}
+
+  {% sections 'header-group' %}
+
+  <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  <!-- WhatsApp Floating Button -->
+  <a 
+    href="https://wa.me/201000025670" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="whatsapp-button"
+    aria-label="Chat on WhatsApp"
+    style="
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 50;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      animation: pulse 2s infinite;
+    ">
+    <svg width="36" height="36" viewBox="0 0 448 512" fill="white">
+      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+    </svg>
+  </a>
+
+  <!-- AI Chat Button -->
+  <div 
+    class="ai-chat-button"
+    style="
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 40;
+    ">
+    <button 
+      type="button"
+      onclick="openAIChat()"
+      style="
+        width: 80px;
+        height: 80px;
+        background: var(--brand-pink);
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease;
+        position: relative;
+      "
+      aria-label="Open AI Chat">
+      <img 
+        src="https://i.ibb.co/0pJwVG44/Untitled-design.png" 
+        alt="LAVIE AI" 
+        style="
+          width: 128px;
+          height: 128px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        "
+      />
+      <span style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        z-index: 1;
+      ">LAVIE AI</span>
+    </button>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      }
+    }
+
+    .whatsapp-button:hover,
+    .ai-chat-button button:hover {
+      transform: scale(1.1);
+    }
+
+    .dark .ai-chat-button button {
+      background: var(--brand-gold);
+    }
+  </style>
+
+  <script>
+    function openAIChat() {
+      alert('LAVIE AI Assistant - Coming Soon!');
+      // TODO: Integrate with your AI chat service
+    }
+  </script>
+
+  <ul hidden>
+    <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+    <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+  </ul>
+
+  <script>
+    window.shopUrl = '{{ request.origin }}';
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      cart_url: '{{ routes.cart_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
+
+    window.cartStrings = {
+      error: `{{ 'sections.cart.cart_error' | t }}`,
+      quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+    }
+
+    window.variantStrings = {
+      addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+      soldOut: `{{ 'products.product.sold_out' | t }}`,
+      unavailable: `{{ 'products.product.unavailable' | t }}`,
+    }
+
+    window.accessibilityStrings = {
+      imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+      shareSuccess: `{{ 'general.share.success_message' | t }}`,
+      pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+      playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+    }
+  </script>
+
+  {%- if settings.predictive_search_enabled -%}
+    <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+</body>
 </html>
