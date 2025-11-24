@@ -1,0 +1,72 @@
+<main>
+  <header>
+    <section classname="relative h-screen w-full overflow-hidden bg-black">
+      <div key="{i}" classname="{`absolute" inset-0="" transition-opacity="" duration-1000="" ${i="==" current="" ?="" 'opacity-100'="" :="" 'opacity-0'}`}="">
+        <video autoplay="" loop="" muted="" playsinline="" classname="w-full h-full object-cover opacity-60"></video>
+        {% if section.settings.image_1 != blank %}
+          {{ section.settings.image_1 | image_url: width: section.settings.image_1.width, height: section.settings.image_1.height | image_tag: alt: section.settings.image_1.alt, loading: 'lazy' }}
+        {% endif %}
+        <div classname="absolute inset-0 flex flex-col justify-center items-center text-center p-4 bg-black/30">
+          {% if section.settings.heading_1 != blank %}
+            <h2 classname="font-['Caveat'] text-4xl md:text-5xl text-[#805454] mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">{{ section.settings.heading_1 }}</h2>
+          {% endif %}
+          {% if section.settings.heading_2 != blank %}
+            <h1 classname="font-serif text-5xl md:text-7xl text-white mb-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">{{ section.settings.heading_2 }}</h1>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    <div classname="py-8 bg-gray-50 dark:bg-zinc-900 text-center border-b border-gray-200 dark:border-gray-800">
+      {% if section.settings.paragraph_1 != blank %}
+        <p classname="text-sm font-bold text-[#805454] tracking-widest uppercase">{{ section.settings.paragraph_1 }}</p>
+      {% endif %}
+      {% if section.settings.paragraph_2 != blank %}
+        <p classname="text-xs text-gray-500 mt-2">{{ section.settings.paragraph_2 }}</p>
+      {% endif %}
+    </div>
+    <section classname="py-20 container mx-auto px-4">
+      {% if section.settings.heading_3 != blank %}
+        <h2 classname="text-4xl font-serif text-center mb-12 dark:text-white text-black">{{ section.settings.heading_3 }}</h2>
+      {% endif %}
+      <div classname="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div key="{product.id}" classname="text-center group cursor-pointer">
+          <div classname="relative aspect-[3/4] mb-4 overflow-hidden rounded-lg bg-gray-100 dark:bg-zinc-800">
+            {% if section.settings.image_2 != blank %}
+              {{ section.settings.image_2 | image_url: width: section.settings.image_2.width, height: section.settings.image_2.height | image_tag: alt: section.settings.image_2.alt, loading: 'lazy' }}
+            {% endif %}
+            {% if section.settings.content_1 != blank %}
+              <button onclick="{()" =="">{{ section.settings.content_1 }}</button>
+            {% endif %}
+          </div>
+          {% if section.settings.heading_4 != blank %}
+            <h3 classname="font-serif text-sm font-bold dark:text-white">{{ section.settings.heading_4 }}</h3>
+          {% endif %}
+          {% if section.settings.paragraph_3 != blank %}
+            <p classname="text-[#805454] text-sm font-bold mt-1">{{ section.settings.paragraph_3 }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    <section classname="grid md:grid-cols-2 min-h-[60vh]">
+      <div classname="relative bg-black">
+        <video autoplay="" loop="" muted="" playsinline="" classname="w-full h-full object-cover"></video>
+      </div>
+      <div classname="flex items-center justify-center p-12 bg-white dark:bg-black">
+        <div classname="max-w-md text-center md:text-left">
+          {% if section.settings.paragraph_4 != blank %}
+            <p classname="text-[#805454] uppercase tracking-widest font-bold text-sm mb-4">{{ section.settings.paragraph_4 }}</p>
+          {% endif %}
+          {% if section.settings.heading_5 != blank %}
+            <h3 classname="font-serif text-4xl md:text-5xl mb-6 dark:text-white text-black">{{ section.settings.heading_5 }}</h3>
+          {% endif %}
+          {% if section.settings.paragraph_5 != blank %}
+            <p classname="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">{{ section.settings.paragraph_5 }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    {% if section.settings.content_2 != blank %}
+      <footer>{{ section.settings.content_2 }}</footer>
+    {% endif %}
+  </header>
+</main>
