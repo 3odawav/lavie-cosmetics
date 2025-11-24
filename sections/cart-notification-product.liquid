@@ -1,53 +1,154 @@
-{%- if cart != empty -%}
-  {%- for item in cart.items -%}
-    <div id="cart-notification-product-{{ item.key }}" class="cart-item">
-      {%- if item.image -%}
-        <div class="cart-notification-product__image global-media-settings">
-          <img
-            src="{{ item.image | image_url: width: 140 }}"
-            alt="{{ item.image.alt | escape }}"
-            width="70"
-            height="{{ 70 | divided_by: item.image.aspect_ratio | ceil }}"
-            loading="lazy"
-          >
-        </div>
-      {%- endif -%}
-      <div>
-        {%- if settings.show_vendor -%}
-          <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
-        {%- endif -%}
-        <h3 class="cart-notification-product__name h4">{{ item.product.title | escape }}</h3>
-        <dl>
-          {%- unless item.product.has_only_default_variant -%}
-            {%- for option in item.options_with_values -%}
-              <div class="product-option">
-                <dt>{{ option.name }}:</dt>
-                <dd>{{ option.value }}</dd>
-              </div>
-            {%- endfor -%}
-          {%- endunless -%}
-          {%- for property in item.properties -%}
-            {%- assign property_first_char = property.first | slice: 0 -%}
-            {%- if property.last != blank and property_first_char != '_' -%}
-              <div class="product-option">
-                <dt>{{ property.first }}:</dt>
-                <dd>
-                  {%- if property.last contains '/uploads/' -%}
-                    <a href="{{ property.last }}" class="link" target="_blank">
-                      {{ property.last | split: '/' | last }}
-                    </a>
-                  {%- else -%}
-                    {{ property.last }}
-                  {%- endif -%}
-                </dd>
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
-        </dl>
-        {%- if item.selling_plan_allocation != null -%}
-          <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
-        {%- endif -%}
+{% comment %}
+  Cart Notification Product - Shows product details in cart notification
+{% endcomment %}
+
+<div class="cart-notification-product" id="cart-notification-product">
+  <div class="cart-notification-product__image">
+    {% if item.image %}
+      <img 
+        src="{{ item.image | image_url: width: 100 }}" 
+        alt="{{ item.title | escape }}"
+        width="100"
+        height="100"
+        loading="lazy"
+      />
+    {% else %}
+      <div class="cart-notification-product__image-placeholder">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
       </div>
+    {% endif %}
+  </div>
+
+  <div class="cart-notification-product__info">
+    <h3 class="cart-notification-product__title">
+      <a href="{{ item.url }}">{{ item.product.title }}</a>
+    </h3>
+    
+    {% if item.variant.title != 'Default Title' %}
+      <p class="cart-notification-product__variant">
+        {{ item.variant.title }}
+      </p>
+    {% endif %}
+
+    <div class="cart-notification-product__price">
+      <span class="price">{{ item.final_price | money }}</span>
+      {% if item.original_price > item.final_price %}
+        <span class="price--compare">{{ item.original_price | money }}</span>
+      {% endif %}
     </div>
-  {%- endfor -%}
-{%- endif -%}
+
+    <p class="cart-notification-product__quantity">
+      Quantity: <strong>{{ item.quantity }}</strong>
+    </p>
+  </div>
+</div>
+
+<style>
+.cart-notification-product {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 8px;
+}
+
+.dark .cart-notification-product {
+  background: #18181B;
+}
+
+.cart-notification-product__image {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.dark .cart-notification-product__image {
+  background: #27272A;
+}
+
+.cart-notification-product__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-notification-product__image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D1D5DB;
+}
+
+.cart-notification-product__info {
+  flex: 1;
+}
+
+.cart-notification-product__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.cart-notification-product__title a {
+  color: #1F2937;
+  text-decoration: none;
+}
+
+.dark .cart-notification-product__title a {
+  color: #F9FAFB;
+}
+
+.cart-notification-product__title a:hover {
+  color: var(--brand-pink);
+}
+
+.cart-notification-product__variant {
+  font-size: 14px;
+  color: #6B7280;
+  margin: 0 0 8px;
+}
+
+.cart-notification-product__price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cart-notification-product__price .price {
+  font-weight: 700;
+  color: var(--brand-pink);
+}
+
+.dark .cart-notification-product__price .price {
+  color: var(--brand-gold);
+}
+
+.cart-notification-product__price .price--compare {
+  font-size: 14px;
+  color: #9CA3AF;
+  text-decoration: line-through;
+}
+
+.cart-notification-product__quantity {
+  font-size: 14px;
+  color: #6B7280;
+  margin: 0;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Cart Notification Product",
+  "settings": []
+}
+{% endschema %}
