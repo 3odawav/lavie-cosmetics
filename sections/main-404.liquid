@@ -1,23 +1,85 @@
 {% comment %}
-  App Embed Section - For third-party app integrations
+  Hero Video Section - La Vie Cosmetics
+  Full-screen video background with CTA
 {% endcomment %}
 
-<div class="apps-section">
-  {% for block in section.blocks %}
-    <div {{ block.shopify_attributes }}>
-      {{ block.settings.html }}
+<section class="hero-video-section relative w-full h-screen overflow-hidden bg-black">
+  
+  <!-- Video Background -->
+  {% if section.settings.video_url != blank %}
+    <div class="absolute inset-0 w-full h-full">
+      <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        class="absolute inset-0 w-full h-full object-cover"
+        {% if section.settings.poster_image %}
+          poster="{{ section.settings.poster_image | image_url: width: 1920 }}"
+        {% endif %}>
+        <source src="{{ section.settings.video_url }}" type="video/mp4">
+      </video>
     </div>
-  {% endfor %}
-</div>
+  {% elsif section.settings.image != blank %}
+    <div class="absolute inset-0 w-full h-full">
+      <img 
+        src="{{ section.settings.image | image_url: width: 1920 }}" 
+        alt="{{ section.settings.heading }}"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+    </div>
+  {% endif %}
 
-{% schema %}
-{
-  "name": "Apps",
-  "blocks": [
-    {
-      "type": "app",
-      "name": "App Block"
-    }
-  ]
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 hero-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);"></div>
+
+  <!-- Content -->
+  <div class="absolute inset-0 flex flex-col justify-end pb-24 px-6 md:px-12 container mx-auto">
+    <div class="max-w-2xl text-white" style="z-index: 10;">
+      
+      {% if section.settings.badge_text != blank %}
+        <span class="inline-block uppercase tracking-widest text-xs font-bold mb-4 text-brand-green-light" style="color: #CCFF00;">
+          {{ section.settings.badge_text }}
+        </span>
+      {% endif %}
+
+      <h1 class="text-5xl md:text-7xl mb-6 leading-tight caveat-heading">
+        {{ section.settings.heading }}
+      </h1>
+
+      {% if section.settings.subheading != blank %}
+        <p class="text-lg md:text-xl mb-8 opacity-90 font-light leading-relaxed max-w-lg">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn-primary inline-block">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  {% if section.settings.show_scroll_indicator %}
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+  {% endif %}
+
+</section>
+
+<style>
+.hero-video-section {
+  position: relative;
 }
-{% endschema %}
+
+.hero-video-section video {
+  filter: brightness(0.8);
+}
+
+.dark .hero-video-section video {
