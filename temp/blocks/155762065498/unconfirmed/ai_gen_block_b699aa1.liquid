@@ -1,6 +1,189 @@
+{% doc %}
+  @prompt
+    Create a premium homepage layout for a Brazilian haircare cosmetics brand with the following sections:
+    
+    1. Hero banner section with a large background image featuring a model, overlay text "La Vie Deep Hair Mask" in elegant script font, subtitle "Intensive repair meets luxury care. Feel your hair's strength return", and a pink/magenta "SHOP HAIR MASK" button
+    
+    2. Product showcase section with circular product images displayed in a horizontal row, each with a "Shop Now" button in pink/magenta, and a centered "SHOP ALL" button above
+    
+    3. Text banner section with centered heading "Authorized Distributor" in elegant script font and subtitle text about authentic products
+    
+    4. Featured product section with large product image on the left (Brazilian hydrating mask jar) and product details on the right including "KERATIN DEEP CONDITIONING", product name "Natural Spices Hair Mask" in script font, description text, and a pink "Shop Now" button
+    
+    5. Scrolling text banner at the bottom with repeated text "BRAZILIAN FORMULA • SULFATE-FREE • PROFESSIONAL QUALITY" in white text on dark magenta background
+    
+    Use a color scheme of white, gold, and magenta/pink. Include glassmorphism effects where appropriate. Make it fully responsive and luxurious.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-scrolling-text-{{ ai_gen_id }} {
+    background-color: {{ block.settings.bg_color }};
+    padding: {{ block.settings.section_padding }}px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ai-scrolling-text__track-{{ ai_gen_id }} {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+  }
+
+  .ai-scrolling-text__content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    animation: ai-scroll-{{ ai_gen_id }} {{ block.settings.scroll_speed }}s linear infinite;
+  }
+
+  .ai-scrolling-text__item-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 0 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .ai-scrolling-text__separator-{{ ai_gen_id }} {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: {{ block.settings.separator_color }};
+    border-radius: 50%;
+    margin: 0 20px;
+  }
+
+  @keyframes ai-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ai-scrolling-text__track-{{ ai_gen_id }}:hover .ai-scrolling-text__content-{{ ai_gen_id }} {
+    animation-play-state: paused;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-scrolling-text__item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.7 }}px;
+      padding: 0 20px;
+    }
+
+    .ai-scrolling-text__separator-{{ ai_gen_id }} {
+      width: 6px;
+      height: 6px;
+      margin: 0 15px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-scrolling-text-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-scrolling-text__track-{{ ai_gen_id }}">
+    <div class="ai-scrolling-text__content-{{ ai_gen_id }}">
+      {% for i in (1..10) %}
+        <span class="ai-scrolling-text__item-{{ ai_gen_id }}">{{ block.settings.text_1 }}</span>
+        <span class="ai-scrolling-text__separator-{{ ai_gen_id }}"></span>
+        <span class="ai-scrolling-text__item-{{ ai_gen_id }}">{{ block.settings.text_2 }}</span>
+        <span class="ai-scrolling-text__separator-{{ ai_gen_id }}"></span>
+        <span class="ai-scrolling-text__item-{{ ai_gen_id }}">{{ block.settings.text_3 }}</span>
+        <span class="ai-scrolling-text__separator-{{ ai_gen_id }}"></span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Scrolling text banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#A91D6B"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "BRAZILIAN FORMULA"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "SULFATE-FREE"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3",
+      "default": "PROFESSIONAL QUALITY"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Text size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll speed",
+      "default": 30
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling text banner"
+    }
+  ]
+}
 {% endschema %}
