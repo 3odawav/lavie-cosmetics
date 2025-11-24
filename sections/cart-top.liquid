@@ -1,14 +1,32 @@
-<div class="page-width">
-	<div class="cart-page-top">
-	{% render 'breadcrumb' %}
-	<div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
+{% comment %}
+  Cart Top Section - Cart page header
+{% endcomment %}
+
+<div class="cart-top py-8 border-b border-gray-200 dark:border-zinc-800">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl md:text-4xl font-serif">
+        {{ 'sections.cart.title' | t }}
+      </h1>
+      
+      {% if cart.item_count > 0 %}
+        <a href="{{ routes.all_products_collection_url }}" class="text-brand-pink dark:text-brand-gold hover:underline">
+          {{ 'general.continue_shopping' | t }}
+        </a>
+      {% endif %}
     </div>
-	{% if settings.enable_progress_bar_shipping %}
-	    <div class="cart__progress_bar">
-	        <div class="progress_bar_shipping"></div>
-	        <div class="progress_bar_shipping_message"></div>
-	    </div>
-	{% endif %}
-	</div>
+    
+    {% if cart.item_count > 0 %}
+      <p class="text-gray-600 dark:text-gray-400 mt-2">
+        {{ 'sections.cart.item_count' | t: count: cart.item_count }}
+      </p>
+    {% endif %}
+  </div>
 </div>
+
+{% schema %}
+{
+  "name": "Cart Top",
+  "settings": []
+}
+{% endschema %}
