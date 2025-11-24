@@ -13,38 +13,54 @@
       "type": "main-404",
       "settings": {}
     },
-    "custom_liquid_ErJeE8": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "{% comment %} Customer Reviews Slider {% endcomment %}\n<div class=\"reviews-section py-16\">\n  <div class=\"container mx-auto px-4\">\n    <h2 class=\"text-4xl caveat-heading text-center mb-12\">What Our Clients Say</h2>\n    \n    <div class=\"reviews-grid grid grid-cols-1 md:grid-cols-3 gap-8\">\n      \n      <div class=\"review-card bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg\">\n        <div class=\"stars text-brand-gold mb-4\">★★★★★</div>\n        <p class=\"text-gray-600 dark:text-gray-400 mb-4\">\n          \"Amazing results! My hair has never been smoother. The Tropicale line is perfect for blonde hair.\"\n        </p>\n        <div class=\"flex items-center gap-3\">\n          <div class=\"w-12 h-12 bg-brand-pink rounded-full\"></div>\n          <div>\n            <p class=\"font-bold\">Sarah Ahmed</p>\n            <p class=\"text-sm text-gray-500\">Cairo, Egypt</p>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"review-card bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg\">\n        <div class=\"stars text-brand-gold mb-4\">★★★★★</div>\n        <p class=\"text-gray-600 dark:text-gray-400 mb-4\">\n          \"Professional quality at home! The SOS Peptide Plex saved my damaged hair.\"\n        </p>\n        <div class=\"flex items-center gap-3\">\n          <div class=\"w-12 h-12 bg-brand-pink rounded-full\"></div>\n          <div>\n            <p class=\"font-bold\">Mariam Hassan</p>\n            <p class=\"text-sm text-gray-500\">Alexandria, Egypt</p>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"review-card bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg\">\n        <div class=\"stars text-brand-gold mb-4\">★★★★★</div>\n        <p class=\"text-gray-600 dark:text-gray-400 mb-4\">\n          \"Authentic Brazilian products! My salon clients love the results.\"\n        </p>\n        <div class=\"flex items-center gap-3\">\n          <div class=\"w-12 h-12 bg-brand-pink rounded-full\"></div>\n          <div>\n            <p class=\"font-bold\">Nour Salon Owner</p>\n            <p class=\"text-sm text-gray-500\">New Cairo, Egypt</p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>",
-        "color_scheme": "scheme-4",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
-    "video_VfLHdz": {
-      "type": "video",
-      "name": "t:sections.video.presets.name",
-      "settings": {
-        "color_scheme": "scheme-4",
-        "heading": "Video",
-        "heading_size": "h0",
-        "description_1": "",
-        "enable_video_looping": true,
-        "video": "shopify://files/videos/sahrana clip .mp4",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "cover_image": "shopify://shop_images/Whisk_916522e0d874979ae1c4af9f2275f291dr_1.png",
-        "description": "",
-        "full_width": true,
-        "padding_top": 0,
-        "padding_bottom": 100
-      }
+    "17640155923ea12590": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_688fc8c_6BMPzm": {
+          "type": "ai_gen_block_688fc8c",
+          "settings": {
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "section_height": 600,
+            "section_height_mobile": 500,
+            "text_alignment": "center",
+            "content_max_width": 700,
+            "enable_glassmorphism": true,
+            "glass_opacity": 20,
+            "glass_blur": 10,
+            "glass_border_radius": 20,
+            "title": "La Vie Deep Hair Mask",
+            "title_font": "assistant_n4",
+            "title_size": 56,
+            "title_color": "#D4AF37",
+            "subtitle": "Intensive repair meets luxury care. Feel your hair's strength return",
+            "subtitle_font": "assistant_n4",
+            "subtitle_size": 18,
+            "subtitle_color": "#FFFFFF",
+            "button_text": "SHOP HAIR MASK",
+            "button_link": "",
+            "button_font_size": 14,
+            "button_padding_vertical": 16,
+            "button_padding_horizontal": 40,
+            "button_border_radius": 30,
+            "button_border_width": 0,
+            "button_bg_color": "#C71585",
+            "button_text_color": "#FFFFFF",
+            "button_border_color": "#C71585",
+            "button_hover_bg_color": "#A0125E",
+            "button_hover_text_color": "#FFFFFF"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_688fc8c_6BMPzm"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "custom_liquid_ErJeE8",
-    "video_VfLHdz"
+    "17640155923ea12590"
   ]
 }
