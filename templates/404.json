@@ -17,8 +17,8 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "",
-        "color_scheme": "",
+        "custom_liquid": "{% comment %} Customer Reviews Slider {% endcomment %}\n<div class=\"reviews-section py-16\">\n  <div class=\"container mx-auto px-4\">\n    <h2 class=\"text-4xl caveat-heading text-center mb-12\">What Our Clients Say</h2>\n    \n    <div class=\"reviews-grid grid grid-cols-1 md:grid-cols-3 gap-8\">\n      \n      <div class=\"review-card bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg\">\n        <div class=\"stars text-brand-gold mb-4\">★★★★★</div>\n        <p class=\"text-gray-600 dark:text-gray-400 mb-4\">\n          \"Amazing results! My hair has never been smoother. The Tropicale line is perfect for blonde hair.\"\n        </p>\n        <div class=\"flex items-center gap-3\">\n          <div class=\"w-12 h-12 bg-brand-pink rounded-full\"></div>\n          <div>\n            <p class=\"font-bold\">Sarah Ahmed</p>\n            <p class=\"text-sm text-gray-500\">Cairo, Egypt</p>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"review-card bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg\">\n        <div class=\"stars text-brand-gold mb-4\">★★★★★</div>\n        <p class=\"text-gray-600 dark:text-gray-400 mb-4\">\n          \"Professional quality at home! The SOS Peptide Plex saved my damaged hair.\"\n        </p>\n        <div class=\"flex items-center gap-3\">\n          <div class=\"w-12 h-12 bg-brand-pink rounded-full\"></div>\n          <div>\n            <p class=\"font-bold\">Mariam Hassan</p>\n            <p class=\"text-sm text-gray-500\">Alexandria, Egypt</p>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"review-card bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg\">\n        <div class=\"stars text-brand-gold mb-4\">★★★★★</div>\n        <p class=\"text-gray-600 dark:text-gray-400 mb-4\">\n          \"Authentic Brazilian products! My salon clients love the results.\"\n        </p>\n        <div class=\"flex items-center gap-3\">\n          <div class=\"w-12 h-12 bg-brand-pink rounded-full\"></div>\n          <div>\n            <p class=\"font-bold\">Nour Salon Owner</p>\n            <p class=\"text-sm text-gray-500\">New Cairo, Egypt</p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>",
+        "color_scheme": "scheme-4",
         "padding_top": 40,
         "padding_bottom": 52
       }
@@ -29,15 +29,16 @@
       "settings": {
         "color_scheme": "scheme-4",
         "heading": "Video",
-        "heading_size": "h1",
+        "heading_size": "h0",
         "description_1": "",
-        "enable_video_looping": false,
+        "enable_video_looping": true,
         "video": "shopify://files/videos/sahrana clip .mp4",
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "cover_image": "shopify://shop_images/Whisk_916522e0d874979ae1c4af9f2275f291dr_1.png",
         "description": "",
-        "full_width": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 100
       }
     }
   },
