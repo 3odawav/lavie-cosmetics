@@ -1,11 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-404",
       "settings": {}
+    },
+    "custom_liquid_ErJeE8": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "video_VfLHdz": {
+      "type": "video",
+      "name": "t:sections.video.presets.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "heading": "Video",
+        "heading_size": "h1",
+        "description_1": "",
+        "enable_video_looping": false,
+        "video": "shopify://files/videos/sahrana clip .mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
+        "full_width": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "custom_liquid_ErJeE8",
+    "video_VfLHdz"
   ]
 }
