@@ -1,29 +1,137 @@
-<section class="page-width about-us" dir="rtl" style="padding:3rem 0;text-align:right;">
-  <div class="about-us-content" style="max-width:800px;margin:0 auto;">
-    <h1 style="font-family:'Sofia Pro', sans-serif;">عن لاڤي</h1>
-    <p style="font-family:'Neue Haas Grotesk Display Pro', sans-serif;">
-      <strong>لاڤي بروفيشنال إيچيبت</strong> هي <strong>الموزع الرسمي والوحيد</strong> لمنتجات لاڤي البرازيلية في السوق المصري. نحن نقدم
-      <strong>تكنولوجيا العناية بالشعر البرازيلية الأصلية</strong> إلى مصر، مطورة ومختبرة على أيدي خبراء في البرازيل ومتكيفة مع طبيعة الشعر في الشرق الأوسط وشمال أفريقيا، خصوصًا الشعر المصري. كل تركيبة
-      تحتوي على <strong>مكونات فاخرة</strong> وأداء عالٍ ومعايير أمان واضحة لتمنحك نتائج صالون تدوم طويلًا.
-    </p>
-    <h2 style="font-family:'Sofia Pro', sans-serif;">✨ إحنا مين وبنقدم إيه؟</h2>
-    <ul style="font-family:'Neue Haas Grotesk Display Pro', sans-serif; list-style:disc;padding-right:1.5rem;">
-      <li><strong>معتمدين ورسميين:</strong> كل منتجاتنا عليها شهادة اعتماد من شركة <strong>Tecso&nbsp;Cosméticos&nbsp;Brazil</strong> البرازيلية.</li>
-      <li><strong>تكنولوجيا برازيلية حقيقية:</strong> نعمل مباشرة مع لاڤي برازيل لضمان أن التركيبات والجودة والنتائج أصلية 100&nbsp;%.</li>
-      <li><strong>نتائج صالون برو:</strong> منتجاتنا مصممة خصيصًا للصالونات، المحترفين، وكل من يبحث عن نتيجة فاخرة وثابتة.</li>
-      <li><strong>جودة مضمونة:</strong> التوزيع الرسمي يضمن لك أن كل منتج أصلي وآمن ويمكن تتبع مصدره.</li>
-    </ul>
-    <h2 style="font-family:'Sofia Pro', sans-serif;">وجودنا في مصر</h2>
-    <p style="font-family:'Neue Haas Grotesk Display Pro', sans-serif;">
-      هذا هو <strong>الموقع الرسمي الوحيد</strong> لتوزيع لاڤي بروفيشنال في مصر. سواء كنت صاحب صالون، خبير شعر، أو محبًا لجمال الشعر، فإن لاڤي بروفيشنال إيچيبت هو مصدرك الموثوق للعناية البرازيلية الأصيلة بالشعر.
-    </p>
+{% comment %}
+  About Us Page - Arabic Version
+{% endcomment %}
+
+<div class="about-us-section py-20" dir="rtl">
+  <div class="container mx-auto px-4">
+    
+    <div class="text-center mb-16">
+      <h1 class="text-5xl md:text-6xl caveat-heading mb-6">
+        {{ section.settings.heading }}
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        {{ section.settings.subheading }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+      <div class="prose dark:prose-invert max-w-none">
+        {{ section.settings.content }}
+      </div>
+      
+      <div>
+        {% if section.settings.image != blank %}
+          <img 
+            src="{{ section.settings.image | image_url: width: 800 }}" 
+            alt="{{ section.settings.heading }}"
+            class="rounded-lg shadow-2xl"
+          />
+        {% else %}
+          <div class="bg-gray-200 dark:bg-zinc-800 rounded-lg h-96"></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}
+          <div {{ block.shopify_attributes }}>
+            <div class="text-4xl md:text-5xl font-bold text-brand-pink dark:text-brand-gold mb-2">
+              {{ block.settings.number }}
+            </div>
+            <div class="text-sm uppercase tracking-wide text-gray-600 dark:text-gray-400">
+              {{ block.settings.label }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-12">
+      <h2 class="text-3xl font-serif text-center mb-12">لماذا تختار لافي؟</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-pink dark:bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🇧🇷</span>
+          </div>
+          <h3 class="font-serif text-xl mb-2">برازيلي أصلي</h3>
+          <p class="text-gray-600 dark:text-gray-400">مستورد مباشرة من البرازيل</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-pink dark:bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">✨</span>
+          </div>
+          <h3 class="font-serif text-xl mb-2">جودة صالونات محترفة</h3>
+          <p class="text-gray-600 dark:text-gray-400">تركيبات احترافية عالية الجودة</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-pink dark:bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🌿</span>
+          </div>
+          <h3 class="font-serif text-xl mb-2">مكونات طبيعية</h3>
+          <p class="text-gray-600 dark:text-gray-400">خالٍ من القسوة والبارابين</p>
+        </div>
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
 
 {% schema %}
 {
-  "name": "About Us (Arabic)",
-  "tag": "section",
-  "class": "section-about-us-ar"
+  "name": "About Us (AR)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "العنوان",
+      "default": "عن لافي كوزمتكس"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "العنوان الفرعي",
+      "default": "الموزع الرسمي الحصري لمنتجات العناية بالشعر البرازيلية في مصر"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "الصورة"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "المحتوى",
+      "default": "<p>لافي كوزمتكس هي الموزع الرسمي والحصري لمنتجات لافي البرازيلية المحترفة في مصر...</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "إحصائية",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "الرقم",
+          "default": "+1000"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "التسمية",
+          "default": "عميل سعيد"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us (AR)"
+    }
+  ]
 }
 {% endschema %}

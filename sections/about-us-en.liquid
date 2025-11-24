@@ -1,29 +1,141 @@
-<section class="page-width about-us" style="padding:3rem 0;">
-  <div class="about-us-content" style="max-width:800px;margin:0 auto;">
-    <h1 style="font-family:'Sofia Pro', sans-serif;">About La&nbsp;Vie</h1>
-    <p style="font-family:'Neue Haas Grotesk Display Pro', sans-serif;">
-      <strong>La&nbsp;Vie Professional Egypt</strong> is the <strong>official and exclusive distributor</strong> of La&nbsp;Vie Brazil in the Egyptian market. We bring
-      <strong>authentic Brazilian haircare technology</strong> to Egypt, formulated and tested by experts in Brazil and adapted to meet the needs of Middle Eastern and North African hair types. Every formula is developed with a balance of
-      <strong>luxury ingredients</strong>, high performance, and safety, to deliver salon‑level results that last.
-    </p>
-    <h2 style="font-family:'Sofia Pro', sans-serif;">✨ What&nbsp;We&nbsp;Stand&nbsp;For</h2>
-    <ul style="font-family:'Neue Haas Grotesk Display Pro', sans-serif; list-style:disc;padding-left:1.5rem;">
-      <li><strong>Official&nbsp;&amp;&nbsp;Certified:</strong> All our products are certified and approved by <strong>Tecso&nbsp;Cosméticos&nbsp;Brazil</strong>.</li>
-      <li><strong>Authentic Brazilian Technology:</strong> We work directly with La&nbsp;Vie&nbsp;Brazil to ensure formulas, standards, and results are 100&nbsp;% original.</li>
-      <li><strong>Professional Performance:</strong> Our products are designed for salons, hair professionals, and clients who want premium, long‑lasting results.</li>
-      <li><strong>Consistent Quality:</strong> Controlled distribution means every product you use is original, safe, and traceable.</li>
-    </ul>
-    <h2 style="font-family:'Sofia Pro', sans-serif;">Our Presence in Egypt</h2>
-    <p style="font-family:'Neue Haas Grotesk Display Pro', sans-serif;">
-      This is the <strong>exclusive official website</strong> for La&nbsp;Vie’s professional distribution in Egypt. Whether you are a salon owner, hair professional, or a beauty lover, La&nbsp;Vie Professional Egypt is your trusted source for real Brazilian haircare.
-    </p>
+{% comment %}
+  About Us Page - English Version
+{% endcomment %}
+
+<div class="about-us-section py-20">
+  <div class="container mx-auto px-4">
+    
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl md:text-6xl caveat-heading mb-6">
+        {{ section.settings.heading }}
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        {{ section.settings.subheading }}
+      </p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+      <div>
+        {% if section.settings.image != blank %}
+          <img 
+            src="{{ section.settings.image | image_url: width: 800 }}" 
+            alt="{{ section.settings.heading }}"
+            class="rounded-lg shadow-2xl"
+          />
+        {% else %}
+          <div class="bg-gray-200 dark:bg-zinc-800 rounded-lg h-96"></div>
+        {% endif %}
+      </div>
+      
+      <div class="prose dark:prose-invert max-w-none">
+        {{ section.settings.content }}
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}
+          <div {{ block.shopify_attributes }}>
+            <div class="text-4xl md:text-5xl font-bold text-brand-pink dark:text-brand-gold mb-2">
+              {{ block.settings.number }}
+            </div>
+            <div class="text-sm uppercase tracking-wide text-gray-600 dark:text-gray-400">
+              {{ block.settings.label }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-12">
+      <h2 class="text-3xl font-serif text-center mb-12">Why Choose La Vie?</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-pink dark:bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🇧🇷</span>
+          </div>
+          <h3 class="font-serif text-xl mb-2">Authentic Brazilian</h3>
+          <p class="text-gray-600 dark:text-gray-400">Direct from Brazil's finest manufacturers</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-pink dark:bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">✨</span>
+          </div>
+          <h3 class="font-serif text-xl mb-2">Salon Quality</h3>
+          <p class="text-gray-600 dark:text-gray-400">Professional-grade formulas</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-pink dark:bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🌿</span>
+          </div>
+          <h3 class="font-serif text-xl mb-2">Natural Ingredients</h3>
+          <p class="text-gray-600 dark:text-gray-400">Cruelty-free & paraben-free</p>
+        </div>
+      </div>
+    </div>
+
   </div>
-</section>
+</div>
 
 {% schema %}
 {
-  "name": "About Us (English)",
-  "tag": "section",
-  "class": "section-about-us"
+  "name": "About Us (EN)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "About La Vie Cosmetics"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Official Distributor of Brazilian Professional Hair Care in Egypt"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>La Vie Cosmetics is the official and exclusive distributor of La Vie Professional Brazil in Egypt...</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "1000+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Happy Clients"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us (EN)"
+    }
+  ]
 }
 {% endschema %}
